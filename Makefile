@@ -20,7 +20,7 @@ $(SRCS_PATH)/%.o:		%.c
 all:				$(NAME)
 
 $(NAME):			$(LIBFT) $(MINILIBX) $(OBJS)
-					$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME) $(MINILIBX) -lX11 -lXext
+					$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME) $(MINILIBX) -lX11 -lXext -g
 
 $(LIBFT):
 					make -C $(LIBFT_PATH) all
