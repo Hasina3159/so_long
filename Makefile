@@ -10,7 +10,7 @@ LIBFT_PATH		=	./libft
 MINILIBX_PATH	=	./minilibx
 LIBFT			=	$(LIBFT_PATH)/libft.a
 MINILIBX		=	$(MINILIBX_PATH)/libmlx_Linux.a
-SRCS 			=	$(SRCS_PATH)/error_check_0.c $(SRCS_PATH)/utils_0.c
+SRCS 			=	$(shell find . -name "*.c" | grep ./src/ | tr '\n' ' ')
 
 OBJS			=	$(SRCS:.c=.o)
 
