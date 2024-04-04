@@ -46,14 +46,34 @@ char	**ft_file_to_array2D(char *path)
 	}
 	return (final);	
 }
+void show(char *s)
+{
+	write(1, s, ft_strlen(s));
+}
+
 void	ft_show_array2D(char **array2D)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (array2D[i])
 	{
-		ft_putstr_fd(array2D[i], 1);
+		j = 0;
+		while (array2D[i][j])
+		{
+			if (array2D[i][j] == PLAYER)
+				show("☃");
+			else if (array2D[i][j] == WALL)
+				show("▆");
+			else if (array2D[i][j] == ITEM)
+				show("○");
+			else if (array2D[i][j] == VOID)
+				show(" ");
+			else if (array2D[i][j] == EXIT)
+				show("⤪");
+			j++;
+		}
 		ft_putstr_fd("\n", 1);
 		i++;
 	}
