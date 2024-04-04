@@ -89,4 +89,16 @@ void    ft_free_img(t_imgs *img, t_ptr *data);
 void    ft_coord_to_map(t_ptr *data, t_imgs **img, int x, int y);
 void    ft_draw_map(t_ptr *data);
 
+int 	ft_wall_has_u(char **map, int x, int y);
+int 	ft_wall_has_d(char **map, int x, int y);
+int 	ft_wall_has_l(char **map, int x, int y);
+int 	ft_wall_has_r(char **map, int x, int y);
+int 	ft_wall_has_ud(char **map, int x, int y);
+int 	ft_wall_has_lr(char **map, int x, int y);
+int 	ft_wall_ud(char **map, int x, int y);
+int 	ft_wall_lr(char **map, int x, int y);
+void    ft_draw_wall(t_ptr *data);
+
+
+
 #endif

@@ -1,38 +1,28 @@
 #include "../so_long.h"
 
-void    ft_coord_to_map(t_ptr *data, t_imgs **img, int x, int y)
+void    ft_coord_to_wall(t_ptr *data, t_imgs **img, int x, int y)
 {
 	*img = *img;
-	if(y == 0)
+	if(!(ft_wall_has_l(data->map, x, y) || ft_wall_has_r(data->map, x, y)))
 	{
-		if (x == 0)
-		{
-			*img = ft_path_to_img("sprite/map/M1.xpm", data);
-			ft_putstr_fd("ATO", 1);
-		}
-		else if (x == ft_get_map_x(data->map) - 1)
-			*img = ft_path_to_img("sprite/map/M3.xpm", data);
-		else
-			*img = ft_path_to_img("sprite/map/M2.xpm", data);
-	}
-	else if (y == ft_get_map_y(data->map) - 1)
-	{
-		if (x == 0)
-			*img = ft_path_to_img("sprite/map/M7.xpm", data);
-		else if (x == ft_get_map_x(data->map) - 1)
-			*img = ft_path_to_img("sprite/map/M9.xpm", data);
-		else
-			*img = ft_path_to_img("sprite/map/M8.xpm", data);
+		if (ft_wall_has_ud(data->map, x, y))
+			*img = ft_path_to_img("sprite/wall/V2.xpm", data);
+		else if (ft_wall_has_u(data->map, x, y))
+			*img = ft_path_to_img("sprite/wall/V3.xpm", data);
+		else if (ft_wall_has_d(data->map, x, y))
+			*img = ft_path_to_img("sprite/wall/V1.xpm", data);
 	}
 	else
 	{
-		if (x == 0)
-			*img = ft_path_to_img("sprite/map/M4.xpm", data);
-		else if (x == ft_get_map_x(data->map) - 1)
-			*img = ft_path_to_img("sprite/map/M6.xpm", data);
-		else
-			*img = ft_path_to_img("sprite/map/M5.xpm", data);
+		if (ft_wall_has_lr(data->map, x, y))
+			*img = ft_path_to_img("sprite/wall/H2.xpm", data);
+		else if (ft_wall_has_l(data->map, x, y))
+			*img = ft_path_to_img("sprite/wall/H3.xpm", data);
+		else if (ft_wall_has_r(data->map, x, y))
+			*img = ft_path_to_img("sprite/wall/H1.xpm", data);
 	}
+	if(!ft_wall_lr(data->map, x, y) && !ft_wall_ud(data->map, x, y))
+		*img = ft_path_to_img("sprite/wall/O.xpm", data);
 }
 
 void    ft_draw_wall(t_ptr *data)
@@ -41,18 +31,23 @@ void    ft_draw_wall(t_ptr *data)
 	int     j;
 	t_imgs  *img;
 
-	i = 0;
-	j = 0;
-	while (i < ft_get_map_y(data->map))
+	i = 1;
+	while (i < ft_get_map_y(data->map) - 1)
 	{
-		j = 0;
-		while (j < ft_get_map_x(data->map))
+		j = 1;
+		while (j < ft_get_map_x(data->map) - 1)
 		{
 			img = NULL;
-			ft_coord_to_map(data, &img, j, i);
-			img->coord.x = j * SIZE;
-			img->coord.y = (i + 1) * SIZE; 
-			ft_show_img(img, data);
+			if (data->map[i][j] == WALL)
+			{
+				ft_coord_to_wall(data, &img, j, i);
+				if (img)
+				{
+					img->coord.x = j * SIZE;
+					img->coord.y = (i + 1) * SIZE; 
+					ft_show_img(img, data);
+				}
+			}
 			j++;
 		}
 		i++;
