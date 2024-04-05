@@ -46,8 +46,12 @@ typedef struct s_ptr
 typedef struct s_imgs
 {
 	void			*img;
+	char			*addr;
 	int				img_width;
 	int				img_height;
+	int				bpp;
+	int				size_line;
+	int				endian;
 	char			type;
 	t_coord			coord;
 }					t_imgs;
@@ -99,6 +103,6 @@ int 	ft_wall_ud(char **map, int x, int y);
 int 	ft_wall_lr(char **map, int x, int y);
 void    ft_draw_wall(t_ptr *data);
 
-
+void	ft_blended_imgs(t_imgs *back, t_imgs *front, t_ptr *data, t_coord coord);
 
 #endif
