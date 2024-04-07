@@ -2,7 +2,20 @@
 
 int ft_close_window(t_ptr *data)
 {
-	(void) data;
+	int	i;
+
+	mlx_destroy_display(data->mlx);
+	mlx_destroy_window(data->mlx, data->win);
+	i = 0;
+	while (data->map[i])
+	{
+		free(data->map[i]);
+		i++;
+	}
+	if (data->map)
+		free(data->map);
+	if (data->mlx)
+		free(data->mlx);
 	exit (0);
 }
 

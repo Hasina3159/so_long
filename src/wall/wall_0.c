@@ -40,12 +40,11 @@ void    ft_draw_wall(t_ptr *data)
 			img = NULL;
 			if (data->map[i][j] == WALL)
 			{
-				ft_coord_to_wall(data, &img, j, i);
 				if (img)
 				{
+					ft_coord_to_wall(data, &img, j, i);
 					img->coord.x = j * SIZE;
 					img->coord.y = (i + 1) * SIZE; 
-					ft_show_img(img, data);
 				}
 			}
 			j++;

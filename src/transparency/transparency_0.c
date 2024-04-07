@@ -1,11 +1,11 @@
-#include "../so_long.h"
+/*#include "../so_long.h"
 
-unsigned int	ft_coord_to_px(t_imgs *img, int x, int y)
+int	ft_coord_to_px(t_imgs *img, int x, int y)
 {
-	unsigned int    px;
+	unsigned int	px;
 
 	px = *(img->addr + ((y * img->size_line) + (x * (img->bpp / 8))));
-	printf("COLOR : [%x]\n", px);
+	//printf("COLOR1 : [%x], bpp : [%d]\n", px, img->bpp);
 	return (px);
 }
 
@@ -23,14 +23,20 @@ void    ft_layer_add(t_imgs *src, t_imgs *dst)
 {
 	int	x;
 	int	y;
+	int px;
 
 	y = 0;
+	printf("bpp : [%d], endian : [%d]\n", src->bpp, src->);
 	while (y < SIZE)
 	{
 		x = 0;
 		while (x < SIZE)
 		{
-			ft_pixel_transparent(dst, x, y, ft_coord_to_px(src, x, y));
+			px = ft_coord_to_px(src, x, y);
+			//printf("#%06x ", px);
+			ft_pixel_transparent(dst, x, y, px);
+			if (x == SIZE - 1)
+				printf("\n");
 			x++;
 		}
 		y++;
@@ -56,4 +62,4 @@ void	ft_blended_imgs(t_imgs *back, t_imgs *front, t_ptr *data, t_coord coord)
 	new.coord.y = coord.y;
 	ft_show_img(&new, data);
 	ft_putstr_fd("6\n", 1);
-}
+}*/

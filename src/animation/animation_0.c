@@ -28,6 +28,7 @@ void	ft_animate(t_animation *animation, t_ptr *data)
 {
 	int	i;
 
+	(void) data;
 	while (1)
 	{
 		i = 0;
@@ -35,7 +36,6 @@ void	ft_animate(t_animation *animation, t_ptr *data)
 		while (animation->imgs[i])
 		{
 			usleep(animation->delay);
-			ft_show_img(animation->imgs[i], data);
 			i++;
 		}
 	}

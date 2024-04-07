@@ -1,5 +1,11 @@
 #include "../so_long.h"
 
+void    ft_show_img(t_imgs *img, t_ptr *data)
+{
+	mlx_put_image_to_window(data->mlx, data->win, img->img, img->coord.x, img->coord.y);
+	ft_free_img(img, data);
+}
+
 t_imgs   *ft_path_to_img(char *path, t_ptr *data)
 {
 	t_imgs   *img;
@@ -17,22 +23,15 @@ t_imgs   *ft_path_to_img(char *path, t_ptr *data)
 	}
 	img->coord.x = 0;
 	img->coord.y = 0;
+	ft_show_img(img, data);
 	return (img);
 }
 
-void    ft_show_img(t_imgs *img, t_ptr *data)
-{
-	mlx_put_image_to_window(data->mlx, data->win, img->img, img->coord.x, img->coord.y);
-}
 void    ft_free_img(t_imgs *img, t_ptr *data)
 {
 	if (!img)
 		return ;
 	if (img->img)
-	{
 		mlx_destroy_image(data->mlx, img->img);
-		if (img->img)
-			free(img->img);
-	}
 	free(img);
 }

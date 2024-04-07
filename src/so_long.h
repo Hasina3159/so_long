@@ -87,11 +87,13 @@ int		ft_get_map_y(char **map);
 int		ft_get_map_x(char **map);
 
 t_imgs   *ft_path_to_img(char *path, t_ptr *data);
-void    ft_show_img(t_imgs *img, t_ptr *data);
 void    ft_free_img(t_imgs *img, t_ptr *data);
 
 void    ft_coord_to_map(t_ptr *data, t_imgs **img, int x, int y);
 void    ft_draw_map(t_ptr *data);
+void    ft_clear_map(t_ptr *data);
+void    ft_update_map(t_ptr *data);
+
 
 int 	ft_wall_has_u(char **map, int x, int y);
 int 	ft_wall_has_d(char **map, int x, int y);

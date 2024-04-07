@@ -125,8 +125,9 @@ int ft_go_right(t_ptr *data, int *move)
 int	ft_move(int keycode, t_ptr	*data)
 {
 	static int	move = 0;
-	char		*text;
+	//char		*text;
 
+	ft_clear_map(data);
 	if (keycode == UP)
 		ft_go_up(data, &move);
 	else if (keycode == DOWN)
@@ -135,10 +136,10 @@ int	ft_move(int keycode, t_ptr	*data)
 		ft_go_left(data, &move);
 	else if (keycode == RIGHT)
 		ft_go_right(data, &move);
-	ft_show_array2D(data->map);
 	ft_putstr_fd("\n", 1);
-	text = ft_strjoin("Move : ", ft_itoa(move));
-	mlx_string_put(data->mlx, data->win, 20, 20, INT_MAX, text);
-
+	//text = ft_itoa(move);
+	//mlx_string_put(data->mlx, data->win, 20, 20, INT_MAX, text);
+	//free(text);
+	ft_update_map(data);
 	return (1);
 }
