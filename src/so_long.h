@@ -86,7 +86,7 @@ char	ft_get_data_from_coord(t_ptr *data, int x, int y);
 int		ft_get_map_y(char **map);
 int		ft_get_map_x(char **map);
 
-t_imgs   *ft_path_to_img(char *path, t_ptr *data);
+void	ft_path_to_img(char *path, t_ptr *data, int x, int y);
 void    ft_free_img(t_imgs *img, t_ptr *data);
 
 void    ft_coord_to_map(t_ptr *data, t_imgs **img, int x, int y);

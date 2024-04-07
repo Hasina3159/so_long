@@ -6,7 +6,7 @@ void    ft_show_img(t_imgs *img, t_ptr *data)
 	ft_free_img(img, data);
 }
 
-t_imgs   *ft_path_to_img(char *path, t_ptr *data)
+void	ft_path_to_img(char *path, t_ptr *data, int x, int y)
 {
 	t_imgs   *img;
 
@@ -21,10 +21,9 @@ t_imgs   *ft_path_to_img(char *path, t_ptr *data)
 		ft_putstr_fd(path, 1);
 		ft_error("Img not found!", EXIT_FAILURE);
 	}
-	img->coord.x = 0;
-	img->coord.y = 0;
+	img->coord.x = x * SIZE;
+	img->coord.y = (y + 1) * SIZE;
 	ft_show_img(img, data);
-	return (img);
 }
 
 void    ft_free_img(t_imgs *img, t_ptr *data)

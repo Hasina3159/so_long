@@ -17,7 +17,7 @@ void    ft_init_animation(t_animation *animation, t_ptr *data, char *paths)
 	i = 0;
 	while (i < size)
 	{
-		animation->imgs[i] = ft_path_to_img(splited_paths[i], data);
+		ft_path_to_img(splited_paths[i], data, 0, 0);
 		i++;
 	}
 	animation->delay = 1000;
