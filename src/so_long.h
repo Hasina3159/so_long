@@ -41,6 +41,8 @@ typedef struct s_ptr
 	t_coord	player;
 	int		is_on_exit;
 	char	*path;
+	char	**p_anim;
+	char	**e_anim;
 }			t_ptr;
 
 typedef struct s_imgs
@@ -58,7 +60,7 @@ typedef struct s_imgs
 
 typedef struct s_animation
 {
-	t_imgs	**imgs;
+	char	**paths;
 	int		delay;
 	int		ending;
 	t_coord	coord;
@@ -106,5 +108,10 @@ int 	ft_wall_lr(char **map, int x, int y);
 void    ft_draw_wall(t_ptr *data);
 
 void	ft_blended_imgs(t_imgs *back, t_imgs *front, t_ptr *data, t_coord coord);
+
+void    ft_anim(t_animation *anim, t_ptr *data);
+int		ft_animation(void *data);
+char    **ft_array2D_dup(char **map);
+void	ft_anim_coord(char **map, char element, t_coord *dst);
 
 #endif

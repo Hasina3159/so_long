@@ -23,6 +23,7 @@ int main(int argc, char **argv)
 		if (!data.win)
 			ft_putstr_fd("Erreur lors de la création de la fenêtre\n", EXIT_FAILURE);
 		ft_get_player_coord(&data);
+		data.p_anim = ft_split("./sprite/player/P1.xpm ./sprite/player/P2.xpm ./sprite/player/P3.xpm ./sprite/player/P4.xpm ./sprite/player/P5.xpm ./sprite/player/P6.xpm", ' ');
 		ft_close_event(&data);
 		mlx_loop(data.mlx);
 	}

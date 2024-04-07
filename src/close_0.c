@@ -16,6 +16,16 @@ int ft_close_window(t_ptr *data)
 		free(data->map);
 	if (data->mlx)
 		free(data->mlx);
+	if (data->p_anim)
+	{
+		i = 0;
+		while (data->p_anim[i])
+		{
+			free(data->p_anim[i]);
+			i++;
+		}
+		free(data->p_anim);
+	}
 	exit (0);
 }
 

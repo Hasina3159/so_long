@@ -1,43 +1,38 @@
 #include "../so_long.h"
 
-void    ft_init_animation(t_animation *animation, t_ptr *data, char *paths)
+void	ft_animate_player(t_animation *anim, t_ptr *data)
 {
-	char	**splited_paths;
-	int		size;
-	int		i;
-
-	splited_paths = ft_split(paths, ' ');
-	if (splited_paths == NULL)
-		return ;
-	size = ft_get_map_y(splited_paths);
-	animation->imgs = (t_imgs **)malloc(sizeof(t_imgs*) * (size + 1));
-	if (animation->imgs == NULL)
-		return ;
-	animation->imgs[size] = NULL;
-	i = 0;
-	while (i < size)
-	{
-		ft_path_to_img(splited_paths[i], data, 0, 0);
-		i++;
-	}
-	animation->delay = 1000;
-	animation->ending = 1000;
-	free(splited_paths);
-}
-void	ft_animate(t_animation *animation, t_ptr *data)
-{
-	int	i;
-
-	(void) data;
-	while (1)
-	{
-		i = 0;
-		usleep(1000);
-		while (animation->imgs[i])
-		{
-			usleep(animation->delay);
-			i++;
-		}
-	}
+	static int	i = 0;
+	t_ptr		tmp;
 	
+
+	ft_anim_coord(data->map, PLAYER, &tmp.player);
+	if (tmp.player.y != data->player.y || tmp.player.x != data->player.x)
+	{
+		ft_get_player_coord(data);
+		ft_clear_map(data);
+		return ;
+	}
+	if (!data->p_anim[i])
+		i = 0;
+	usleep(anim->delay);
+	ft_path_to_img(data->p_anim[i], data, anim->coord.x, anim->coord.y);
+	i++;
+}
+
+void    ft_anim(t_animation *anim, t_ptr *data)
+{
+	anim->delay = 100000;
+	anim->ending = 100000;
+	ft_animate_player(anim, data);
+}
+int	ft_animation(void *data)
+{
+	t_animation	anim;
+	t_ptr		*data_ptr;
+
+	data_ptr = (t_ptr *)data;
+	anim.coord = data_ptr->player;
+	ft_anim(&anim, data_ptr);
+	return (0);
 }

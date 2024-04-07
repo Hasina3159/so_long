@@ -141,5 +141,7 @@ int	ft_move(int keycode, t_ptr	*data)
 	//mlx_string_put(data->mlx, data->win, 20, 20, INT_MAX, text);
 	//free(text);
 	ft_update_map(data);
+	mlx_loop_hook(data->mlx, ft_animation, data);
+
 	return (1);
 }
