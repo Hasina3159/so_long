@@ -2,30 +2,18 @@
 
 int ft_close_window(t_ptr *data)
 {
-	int	i;
-
 	mlx_destroy_display(data->mlx);
 	mlx_destroy_window(data->mlx, data->win);
-	i = 0;
-	while (data->map[i])
-	{
-		free(data->map[i]);
-		i++;
-	}
-	if (data->map)
-		free(data->map);
+	if (!data)
+		exit (0);
 	if (data->mlx)
 		free(data->mlx);
 	if (data->p_anim)
-	{
-		i = 0;
-		while (data->p_anim[i])
-		{
-			free(data->p_anim[i]);
-			i++;
-		}
-		free(data->p_anim);
-	}
+		ft_free_2D(data->p_anim);
+	if (data->e_anim)
+		ft_free_2D(data->e_anim);
+	if (data->map)
+		ft_free_2D(data->map);
 	exit (0);
 }
 

@@ -18,6 +18,7 @@
 # define ITEM 'C'
 # define EXIT 'E'
 # define PLAYER 'P'
+# define MONSTER 'M'
 
 # define UP 119
 # define LEFT 97
@@ -38,6 +39,7 @@ typedef struct s_ptr
 	void	*mlx;
 	void	*win;
 	char	**map;
+	char	**map_tmp;
 	t_coord	player;
 	int		is_on_exit;
 	char	*path;
@@ -70,6 +72,11 @@ int		ft_check_file_validity(char *path);
 int		ft_check_content_valididy(int fd);
 int		ft_check_extension(char *path);
 int		ft_check_all(char *path);
+char    **ft_array2D_dup(char **map);
+int		ft_check_player(t_ptr *data, int x, int y);
+void	ft_check_player_path(t_ptr *data, int x, int y, int *is_valid);
+int		ft_count_element(char **map, char element);
+int		ft_check_count(char **map);
 
 int		ft_close_window(t_ptr *data);
 void	ft_error(char *err_msg, int	exit_status);
@@ -95,7 +102,7 @@ void    ft_coord_to_map(t_ptr *data, t_imgs **img, int x, int y);
 void    ft_draw_map(t_ptr *data);
 void    ft_clear_map(t_ptr *data);
 void    ft_update_map(t_ptr *data);
-
+void    ft_draw_map_tmp(t_ptr *data);
 
 int 	ft_wall_has_u(char **map, int x, int y);
 int 	ft_wall_has_d(char **map, int x, int y);
@@ -109,9 +116,11 @@ void    ft_draw_wall(t_ptr *data);
 
 void	ft_blended_imgs(t_imgs *back, t_imgs *front, t_ptr *data, t_coord coord);
 
-void    ft_anim(t_animation *anim, t_ptr *data);
 int		ft_animation(void *data);
 char    **ft_array2D_dup(char **map);
 void	ft_anim_coord(char **map, char element, t_coord *dst);
+void	ft_animate_enemy(t_animation *anim, t_ptr *data);
+
+void	ft_free_2D(char **array2D);
 
 #endif

@@ -22,6 +22,8 @@ int	ft_is_valid_char(char c)
 {
 	if (c == PLAYER || c == WALL || c == EXIT || c == ITEM || c == VOID)
 		return (1);
+	if (c == MONSTER)
+		return (1);
 	return (0);
 }
 

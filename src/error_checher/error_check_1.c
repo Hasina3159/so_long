@@ -18,3 +18,32 @@ int	ft_check_all(char *path)
 	close(fd);
 	return (1);
 }
+int	ft_count_element(char **map, char element)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == element)
+				count++;
+			j++;
+		}
+		i++;
+	}
+	return (count);
+}
+
+int	ft_check_count(char **map)
+{
+	if (ft_count_element(map, PLAYER) != 1 || ft_count_element(map, EXIT) != 1)
+		return (0);
+	if (ft_count_element(map, ITEM) <= 0)
+		return (0);
+	return (1);
+}

@@ -125,7 +125,7 @@ int ft_go_right(t_ptr *data, int *move)
 int	ft_move(int keycode, t_ptr	*data)
 {
 	static int	move = 0;
-	//char		*text;
+	char		*text;
 
 	ft_clear_map(data);
 	if (keycode == UP)
@@ -136,10 +136,12 @@ int	ft_move(int keycode, t_ptr	*data)
 		ft_go_left(data, &move);
 	else if (keycode == RIGHT)
 		ft_go_right(data, &move);
-	ft_putstr_fd("\n", 1);
-	//text = ft_itoa(move);
-	//mlx_string_put(data->mlx, data->win, 20, 20, INT_MAX, text);
-	//free(text);
+	text = ft_itoa(move);
+	ft_path_to_img("./sprite/others/V.xpm", data, 0, -1);
+	ft_path_to_img("./sprite/others/V.xpm", data, 1, -1);
+	mlx_string_put(data->mlx, data->win, 20, 20, INT_MAX, "MOVE : ");
+	mlx_string_put(data->mlx, data->win, 60, 20, INT_MAX, text);
+	free(text);
 	ft_update_map(data);
 	mlx_loop_hook(data->mlx, ft_animation, data);
 
