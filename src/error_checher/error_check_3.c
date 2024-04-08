@@ -54,3 +54,30 @@ int	ft_check_player(t_ptr *data, int x, int y)
 	free(data->map_tmp);
 	return (is_valid);
 }
+
+int	ft_collide(t_ptr *data, char element, char move, char *message)
+{
+	int		x;
+	int		y;
+	t_coord	coord;
+	char	**map;
+
+	x = 0;
+	y = 0;
+	if (move == 'u')
+		y--;
+	else if (move == 'd')
+		y++;
+	if (move == 'l')
+		x--;
+	else if (move == 'r')
+		x++;
+	map = data->map;
+	coord = data->player;
+	if (map[coord.y + y][coord.x + x] == element)
+	{
+		ft_putstr_fd(message, 1);
+		ft_close_window(data);
+	}
+	return (0);
+}

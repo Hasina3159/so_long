@@ -12,6 +12,8 @@ int main(int argc, char **argv)
 		data.is_on_exit = 0;
 		data.map = ft_file_to_array2D(path);
 		data.map_tmp = ft_file_to_array2D(path);
+		if (!ft_check_count(data.map))
+			ft_error("Items number error!\n", 2);
 		data.path = path;
 		data.mlx = mlx_init();
 		if (!data.mlx)

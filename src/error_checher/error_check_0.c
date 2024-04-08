@@ -69,5 +69,3 @@ int	ft_check_extension(char *path)
 		return (0);
 	return (1);
 }
-
-

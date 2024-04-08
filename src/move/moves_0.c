@@ -1,149 +1,58 @@
 #include "../so_long.h"
 
-int ft_go_up(t_ptr *data, int *move)
+static void	ft_condition(t_ptr *data, int *move, char element)
 {
-	t_coord	*player;
-	char	**map;
-	char	up;
-
-	ft_get_player_coord(data);
-	player = &data->player;
-	map = data->map;
-	if (player->y == 0)
-		return (0);
-	up = ft_get_data_from_coord(data, player->x, player->y - 1);
-	if (up == WALL)
-		return (0);
-	else if (up == EXIT)
+	if (element == 'u')
 	{
-		data->is_on_exit = 1;
-		map[player->y][player->x] = VOID;
+		ft_collide(data, MONSTER, 'u', "GAME OVER!\n");
+		ft_exit_collide(data, 'u');
+		*move = *move + ft_go_up(data, move);
 	}
-	else
+	else if (element == 'd')
 	{
-		if (ft_data_exit(data, map, player))
-			(void) up;
-		else
-			map[player->y][player->x] = VOID;
+		ft_collide(data, MONSTER, 'd', "GAME OVER!\n");
+		ft_exit_collide(data, 'd');
+		*move = *move + ft_go_down(data, move);
 	}
-	map[player->y - 1][player->x] = PLAYER;
-	*move = *move + 1;
-	return (1);
-}
-
-int ft_go_down(t_ptr *data, int *move)
-{
-	t_coord	*player;
-	char	**map;
-	char	down;
-
-	ft_get_player_coord(data);
-	player = &data->player;
-	map = data->map;
-	if (player->y >= ft_get_map_y(map) - 1)
-		return (0);
-	down = ft_get_data_from_coord(data, player->x, player->y + 1);
-	if (down == WALL)
-		return (0);
-	else if (down == EXIT)
+	else if (element == 'l')
 	{
-		data->is_on_exit = 1;
-		map[player->y][player->x] = VOID;
+		ft_collide(data, MONSTER, 'l', "GAME OVER!\n");
+		ft_exit_collide(data, 'l');
+		*move = *move + ft_go_left(data, move);
 	}
-	else
+	else if (element == 'r')
 	{
-		if (ft_data_exit(data, map, player))
-			(void) down;
-		else
-			map[player->y][player->x] = VOID;
+		ft_collide(data, MONSTER, 'r', "GAME OVER!\n");
+		ft_exit_collide(data, 'r');
+		*move = *move + ft_go_right(data, move);
 	}
-	map[player->y + 1][player->x] = PLAYER;
-	*move = *move + 1;
-	return (1);
-}
-int ft_go_left(t_ptr *data, int *move)
-{
-	t_coord	*player;
-	char	**map;
-	char	left;
-
-	ft_get_player_coord(data);
-	player = &data->player;
-	map = data->map;
-	if (player->x <= 0)
-		return (0);
-	left = ft_get_data_from_coord(data, player->x - 1, player->y);
-	if (left == WALL)
-		return (0);
-	else if (left == EXIT)
-	{
-		data->is_on_exit = 1;
-		map[player->y][player->x] = VOID;
-	}
-	else
-	{
-		if (ft_data_exit(data, map, player))
-			(void) left;
-		else
-			map[player->y][player->x] = VOID;
-	}
-	map[player->y][player->x - 1] = PLAYER;
-	*move = *move + 1;
-	return (1);
-}
-int ft_go_right(t_ptr *data, int *move)
-{
-	t_coord	*player;
-	char	**map;
-	char	right;
-
-	ft_get_player_coord(data);
-	player = &data->player;
-	map = data->map;
-	if (player->x >= ft_get_map_x(map) - 1)
-		return (0);
-	right = ft_get_data_from_coord(data, player->x + 1, player->y);
-	if (right == WALL)
-		return (0);
-	else if (right == EXIT)
-	{
-		data->is_on_exit = 1;
-		map[player->y][player->x] = VOID;
-	}
-	else
-	{
-		if (ft_data_exit(data, map, player))
-			(void) right;
-		else
-			map[player->y][player->x] = VOID;
-	}
-	map[player->y][player->x + 1] = PLAYER;
-	*move = *move + 1;
-	return (1);
 }
 
 int	ft_move(int keycode, t_ptr	*data)
 {
-	static int	move = 0;
 	char		*text;
+	int			move;
 
+	move = 0;
 	ft_clear_map(data);
 	if (keycode == UP)
-		ft_go_up(data, &move);
+		ft_condition(data, &move, 'u');
 	else if (keycode == DOWN)
-		ft_go_down(data, &move);
+		ft_condition(data, &move, 'd');
 	else if (keycode == LEFT)
-		ft_go_left(data, &move);
+		ft_condition(data, &move, 'l');
 	else if (keycode == RIGHT)
-		ft_go_right(data, &move);
+		ft_condition(data, &move, 'r');
 	text = ft_itoa(move);
 	ft_path_to_img("./sprite/others/V.xpm", data, 0, -1);
 	ft_path_to_img("./sprite/others/V.xpm", data, 1, -1);
 	mlx_string_put(data->mlx, data->win, 20, 20, INT_MAX, "MOVE : ");
 	mlx_string_put(data->mlx, data->win, 60, 20, INT_MAX, text);
 	free(text);
-	ft_update_map(data);
-	mlx_loop_hook(data->mlx, ft_animation, data);
-
+	if (move)
+	{
+		ft_update_map(data);
+		mlx_loop_hook(data->mlx, ft_animation, data);
+	}
 	return (1);
 }

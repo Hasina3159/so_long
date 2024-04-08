@@ -25,6 +25,7 @@ int	ft_count_element(char **map, char element)
 	int	count;
 
 	i = 0;
+	count = 0;
 	while (map[i])
 	{
 		j = 0;
@@ -41,9 +42,30 @@ int	ft_count_element(char **map, char element)
 
 int	ft_check_count(char **map)
 {
-	if (ft_count_element(map, PLAYER) != 1 || ft_count_element(map, EXIT) != 1)
+	if (ft_count_element(map, PLAYER) != 1)
+	{
+		ft_putstr_fd("PLAYER Error!!\n", 2);
 		return (0);
+	}
+	if (ft_count_element(map, EXIT) != 1)
+	{
+		ft_putstr_fd("EXIT Error!!\n", 2);
+		return (0);
+	}
 	if (ft_count_element(map, ITEM) <= 0)
+	{
+		ft_putstr_fd("ITEM Error!!\n", 2);
 		return (0);
+	}
+	if (ft_get_map_x(map) <= 2 || ft_get_map_y(map) <= 2)
+	{
+		ft_putstr_fd("SIZE Error!!\n", 2);
+		return (0);
+	}
+	if (ft_get_map_x(map) <= 3 && ft_get_map_y(map) <= 3)
+	{
+		ft_putstr_fd("SIZE Error!!\n", 2);
+		return (0);
+	}
 	return (1);
 }
